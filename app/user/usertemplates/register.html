@@ -1,0 +1,41 @@
+{% extends './components/layout.html' %}
+
+{% block content %}
+<h3 style="text-align:center;"><b>Registration-</b></h3>
+<div class="d-flex justify-content-center">
+<form method="POST">
+  {{ rform.hidden_tag() }}
+    
+  <fieldset id="username-field">
+    {{ rform.username.label }}
+    {{ rform.username(class='form-control', placeholder='Username. . .')}}
+  </fieldset>
+  <fieldset id="email-field">
+    {{ rform.email.label }}
+    {{ rform.email(class='form-control', placeholder='Email. . .')}}
+  </fieldset>
+  <fieldset id="first_name-field">
+    {{ rform.first_name.label }}
+    {{ rform.first_name(class='form-control', placeholder='First Name. . .')}}
+  </fieldset>
+  <fieldset id="last_name-field">
+    {{ rform.last_name.label }}
+    {{ rform.last_name(class='form-control', placeholder='Last Name. . .')}}
+  </fieldset>
+  <fieldset id="password-field">
+    {{ rform.password.label }}
+    {{ rform.password(class='form-control', placeholder='Password. . .')}}
+  </fieldset>
+  <fieldset id="confirm_password-field">
+    {{ rform.confirm_password.label }}
+    {{ rform.confirm_password(class='form-control', placeholder='Confirm Password. . .')}}
+  </fieldset>
+  <br>
+  <div class="d-grid gap-2 col-4 mx-auto mt-4">
+    {{ rform.submit(class='btn btn-block btn-info') }}
+  </div>
+
+
+</form>
+</div>
+{% endblock %}

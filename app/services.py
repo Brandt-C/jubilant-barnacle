@@ -1,6 +1,3 @@
-import requests as r
-
-
 class Pokemon:
     def __init__(self, name, hp, defense, att, speed, sprite, shiny_sprite, height, weight):
         self.types = []
