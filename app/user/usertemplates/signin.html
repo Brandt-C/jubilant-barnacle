@@ -9,19 +9,20 @@
         {{ sform.hidden_tag() }}
         <div class="mb-3 col-3">
             {{ sform.username.label }}
-                {{ sform.username(class='form-control', placeholder='Please enter your username.')}}
+            {{ sform.username(class='form-control', placeholder='Please enter your username.')}}
         </div>
         <div class="mb-3 col-3">
             {{ sform.password.label }}
             {{ sform.password(class='form-control', placeholder='Please enter your password.')}}
         </div>
-        <br>
-        
-    </form>
-    
-</div>
-<div class="d-grid gap-2 col-4 mx-auto mt-4">
-        {{ sform.submit(class='btn btn-primary') }}
+        <div class="d-grid gap-2 col-4 mx-auto mt-4">
+            {{ sform.submit(class='btn btn-primary') }}
         </div>
+        <br>
+
+    </form>
+
+</div>
+
 
 {% endblock %}

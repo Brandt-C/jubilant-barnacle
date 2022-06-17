@@ -12,12 +12,15 @@ from flask_login import login_user, current_user, login_required, logout_user
 def signin():
     sform = SignInForm()
     if request.method == 'POST':
+        print('POOOOOSSSSSSTTTT')
         if sform.validate_on_submit():
+            print('Validated!!!!')
             user = User.query.filter_by(username=sform.username.data).first()
             if user and check_password_hash(user.password, sform.password.data):
+                print('\nShould be working. . . .')
                 login_user(user)
                 flash(f'Welcome back {sform.username.data}!', category='success')
-                return redirect(url_for('home'))
+                return redirect(url_for('user.userHome'))
         flash(f"Wrong Username or password.")
         return redirect(url_for('user.signin'))
     return render_template('signin.html', sform=sform)
@@ -35,8 +38,8 @@ def register():
                 flash(f'Username or email has been used previously, please try a different entry!')
                 return redirect(url_for('user.register'))
             login_user(newuser)
-            flash(f'Registration successful! Welcome {rform.first_name}!', category='success')
-            return redirect(url_for('home'))
+            flash(f'Registration successful! Welcome {rform.first_name._value()}!', category='success')
+            return redirect(url_for('user.userHome'))
         else:
             flash("didn't work!!!!!", category='danger')
             return redirect(url_for('user.register'))
@@ -48,3 +51,9 @@ def signOut():
     logout_user()
     flash('You have been logged out, please sign back in to access all the fun stuff!', category='warning')
     return redirect(url_for('user.signin'))
+
+@user.route('/userhome')
+@login_required
+def userHome():
+    flash('Welcome back!', category='success')
+    return render_template('userhome.html')
