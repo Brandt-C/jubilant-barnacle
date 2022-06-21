@@ -1,7 +1,7 @@
 import requests as r
 
 class Pokemon:
-    def __init__(self, name, hp, defense, att, speed, sprite, shiny_sprite, height, weight):
+    def __init__(self, name, hp, defense, att, speed, sprite, shiny_sprite, height, weight, id):
         self.types = []
         self.abilities = []
         self.moves = []
@@ -14,6 +14,7 @@ class Pokemon:
         self.shiny_sprite = shiny_sprite
         self.height = height
         self.weight = weight
+        self.id = id
 
     def disp_poke(self):
         print(f"\n{self.name.title()}- Weight- {self.weight} Height-{self.height} HP-{self.hp} Defense-{self.defense} Attack-{self.att}\n Types= {self.types}\n Abilities= {self.abilities}\n Moves= {self.moves}")
@@ -34,8 +35,9 @@ class Pokedex:
         shiny_sprite = data['sprites']['front_shiny']
         height = data['height']
         weight = data['weight']
+        id = data['id']
         
-        new_poke = Pokemon(pname, hp, defense, att, speed, sprite, shiny_sprite, height, weight)
+        new_poke = Pokemon(pname, hp, defense, att, speed, sprite, shiny_sprite, height, weight, id)
         for a in data['abilities']:
             new_poke.abilities.append(a['ability']['name'])
         for b in data['types']:

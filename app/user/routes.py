@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 
 user = Blueprint('user', __name__, template_folder='usertemplates', url_prefix='/user')
 
-from .userforms import SignInForm, RegForm
+from .userforms import SignInForm, RegForm, FindPokeForm
 from app.models import User, db
 from werkzeug.security import check_password_hash
 from flask_login import login_user, current_user, login_required, logout_user
@@ -12,12 +12,9 @@ from flask_login import login_user, current_user, login_required, logout_user
 def signin():
     sform = SignInForm()
     if request.method == 'POST':
-        print('POOOOOSSSSSSTTTT')
         if sform.validate_on_submit():
-            print('Validated!!!!')
             user = User.query.filter_by(username=sform.username.data).first()
             if user and check_password_hash(user.password, sform.password.data):
-                print('\nShould be working. . . .')
                 login_user(user)
                 flash(f'Welcome back {sform.username.data}!', category='success')
                 return redirect(url_for('user.userHome'))
@@ -55,5 +52,12 @@ def signOut():
 @user.route('/userhome')
 @login_required
 def userHome():
+    fpform = FindPokeForm()
+    if request.method == "POST":
+        if fpform.validate_on_submit():
+            pass
+
+        # will finish after classes are defined
+        
     flash('Welcome back!', category='success')
     return render_template('userhome.html')
