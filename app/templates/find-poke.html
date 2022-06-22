@@ -4,8 +4,42 @@
 {% endblock %}
 
 {% block content %}
+<h1>Poke-page</h1>
+<div class="container mt-4">
+    <form class="row justify-content-md-center" method="POST">
+        {{ fp.hidden_tag() }}
+        <div class="mb-3 col-3">
+            {{ fp.poke_name.label }}
+            {{ fp.poke_name(class='form-control', placeholder='Enter Poke name')}}
+        </div>
+        <div class="d-grid gap-2 col-4 mx-auto mt-4">
+            {{ fp.submit(class='btn btn-danger') }}
+        </div>
+        <br>
+    </form>
+</div>
 {% endblock %}
 
 {% block content2 %}
-<h1>Poke-page</h1>
+{% for x in dex.pokemon %}
+<div class="container-fluid">
+    <div class="row m-auto">
+      <div id="rand-card" class="card m-auto" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{dex.pokemon[x].sprite}}" class="img-fluid rounded-start" alt="Pokemon image">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{dex.pokemon[x].name}}</h5>
+              <p class="card-text">Height: {{dex.pokemon[x].height}}<br>Weight: {{dex.pokemon[x].weight}}<br>
+                </p>
+              <p class="card-text"><small class="text-muted"></small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
 {% endblock %}

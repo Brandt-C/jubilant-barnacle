@@ -46,20 +46,12 @@ class Pokemon(db.Model):
     shiny_sprite = db.Column(db.String(255))
     height = db.Column(db.Integer)
     weight = db.Column(db.Integer)
+    user = db.Column(db.String(50))
 
 
-
-    # self.types = []
-    # self.abilities = []
-    # self.moves = []
-    # self.name = name
-    # self.hp = hp
-    # self.defense = defense
-    # self.att = att
-    # self.speed = speed
-    # self.sprite = sprite
-    # self.shiny_sprite = shiny_sprite
-    # self.height = height
-    # self.weight = weight
-    # self.id = id
+class Moves(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50))
+    power = db.Column(db.Integer)
+    pp = db.Column(db.Integer)
 
