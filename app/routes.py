@@ -2,7 +2,7 @@ from requests import request
 from app import app
 from flask import render_template, request
 from .forms import FindPoke
-from .services import Poke, Pokedex
+from .models import Pokedex
 
 @app.route('/')
 def home():
