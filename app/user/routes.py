@@ -1,9 +1,9 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
-
+from requests import request
+from flask import Blueprint, render_template, redirect, url_for, flash, request
 user = Blueprint('user', __name__, template_folder='usertemplates', url_prefix='/user')
 
 from .userforms import SignInForm, RegForm, FindPokeForm
-from app.models import User, db
+from app.models import User, db, Pokedex
 from werkzeug.security import check_password_hash
 from flask_login import login_user, current_user, login_required, logout_user
 
@@ -49,15 +49,14 @@ def signOut():
     flash('You have been logged out, please sign back in to access all the fun stuff!', category='warning')
     return redirect(url_for('user.signin'))
 
-@user.route('/userhome')
+@user.route('/userhome', methods=['GET', 'POST'])
 @login_required
 def userHome():
     fpform = FindPokeForm()
+    dex = Pokedex()
+    mydex = Pokedex()
     if request.method == "POST":
-        if fpform.validate_on_submit():
-            pass
-
-        # will finish after classes are defined
-        
+        dex.add_poke(fpform.data['poke'])
+        return render_template('userhome.html', dex=dex, fpform=fpform, mydex=mydex)
     flash('Welcome back!', category='success')
-    return render_template('userhome.html')
+    return render_template('userhome.html', dex=dex, fpform=fpform, mydex=mydex)

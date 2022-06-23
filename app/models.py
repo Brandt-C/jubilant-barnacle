@@ -99,12 +99,13 @@ class Pokedex:
         if mempoke:
             print(mempoke, type(mempoke))
             data = mempoke.to_dict()
-            hp = data['stats'][0]['base_stat']
-            defense = data['stats'][2]['base_stat']
-            att = data['stats'][1]['base_stat']
-            speed = data['stats'][5]['base_stat']
-            sprite = data['sprites']['front_default']
-            shiny_sprite = data['sprites']['front_shiny']
+            print(data)
+            hp = data['hp']
+            defense = data['defense']
+            att = data['att']
+            speed = data['speed']
+            sprite = data['sprite']
+            shiny_sprite = data['shiny_sprite']
             height = data['height']
             weight = data['weight']
             id = data['id']
