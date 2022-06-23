@@ -24,6 +24,11 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(50))
     password = db.Column(db.String(250), nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.now(timezone.utc))
+    pslot1 = db.Column(db.String(50))
+    pslot2 = db.Column(db.String(50))
+    pslot3 = db.Column(db.String(50))
+    pslot4 = db.Column(db.String(50))
+    pslot5 = db.Column(db.String(50))
 
     def __init__(self, username, email, password, first_name= "", last_name = ""):
         self.username =username
