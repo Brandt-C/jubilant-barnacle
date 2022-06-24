@@ -19,3 +19,6 @@ class SignInForm(FlaskForm):
 class FindPokeForm(FlaskForm):
     poke = StringField('Enter Pokemon name', validators=[DataRequired()])
     submit = SubmitField()
+
+class Catch(FlaskForm):
+    submit = SubmitField('Catch!')

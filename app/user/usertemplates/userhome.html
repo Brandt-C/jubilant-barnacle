@@ -15,15 +15,16 @@
       </div>
       <div class="card-body">
         <form method="POST">
-        {{ fpform.poke.label }}
-        {{ fpform.poke(class='form-control', placeholder='Enter Poke name')}}
-        {{ fpform.submit(class='btn btn-danger') }}
+          {{ fpform.poke.label }}
+          {{ fpform.poke(class='form-control', placeholder='Enter Poke name')}}
+          {{ fpform.submit(class='btn btn-danger') }}
         </form>
       </div>
     </div>
-  </div>
-  {% for x in dex.pokemon %}
-  <div class="row justify-content-md-center">
+
+
+    {% for x in dex.pokemon %}
+
     <div class="card2" style="width: 18rem;">
       <img src="{{dex.pokemon[x].sprite}}" class="card-img-top" alt="{{dex.pokemon[x].name}} image">
       <div class="card-body">
@@ -38,11 +39,26 @@
         <li class="list-group-item"><b>Speed-</b> {{dex.pokemon[x].speed}}</li>
       </ul>
       <div class="card-body">
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
+        {% if dex.pokemon[x].user %}
+        <a href="#" class="card-link" aria-disabled="true">Caught by-{{dex.pokemon[x].user}}</a>
+        {% elif not dex.pokemon[x].user %}
+        <form method="POST">{{catch.submit(class='btn btn-danger')}}</form>
+        {% endif %}
       </div>
     </div>
     {% endfor %}
   </div>
 </div>
+{% endblock %}
+
+{% block content3 %}
+<div class="container-fluid">
+  <div class="row justify-content-md-center">
+    {% for x in my_dict.values %}
+    <h5>{{x}}</h5>
+    {% endfor %}
+
+  </div>
+</div>
+
 {% endblock %}

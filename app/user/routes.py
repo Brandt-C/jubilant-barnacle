@@ -2,8 +2,8 @@ from requests import request
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 user = Blueprint('user', __name__, template_folder='usertemplates', url_prefix='/user')
 
-from .userforms import SignInForm, RegForm, FindPokeForm
-from app.models import User, db, Pokedex
+from .userforms import Catch, SignInForm, RegForm, FindPokeForm
+from app.models import Pokemon, User, db, Pokedex
 from werkzeug.security import check_password_hash
 from flask_login import login_user, current_user, login_required, logout_user
 
@@ -53,10 +53,27 @@ def signOut():
 @login_required
 def userHome():
     fpform = FindPokeForm()
+    catch = Catch()
     dex = Pokedex()
     mydex = Pokedex()
+    my_dict = current_user.poke_dict()
+    print(my_dict)
     if request.method == "POST":
-        dex.add_poke(fpform.data['poke'])
-        return render_template('userhome.html', dex=dex, fpform=fpform, mydex=mydex)
+        print(fpform.data)
+        print('\n^^^fpform------\/ \/ \/catch')
+        print(catch.data)
+        
+        if fpform.data:
+            dex.add_poke(fpform.data['poke'])
+            return render_template('userhome.html', catch=catch, my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)
+        
+        #  NEED to re-work logic here- is this a flowers for Algernon kinda story?
+        
+        # if catch.data:
+        #     print(catch.data)
+        #     current_user.add_poke(namecatch[0])
+        #     upoke = Pokemon.query.filter(Pokemon.name==namecatch[0]).first()
+        #     upoke.catch(current_user.username)
+        #     return render_template('userhome.html', catch=catch, my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)
     flash('Welcome back!', category='success')
-    return render_template('userhome.html', dex=dex, fpform=fpform, mydex=mydex)
+    return render_template('userhome.html', catch=catch, my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)

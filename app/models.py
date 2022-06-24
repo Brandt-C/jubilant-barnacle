@@ -38,6 +38,53 @@ class User(db.Model, UserMixin):
         self.password = generate_password_hash(password)
         self.id = str(uuid4())
 
+    def poke_dict(self):
+        return {
+            'poke1' : self.pslot1,
+            'poke2' : self.pslot2,
+            'poke3' : self.pslot3,
+            'poke4' : self.pslot4,
+            'poke5' : self.pslot5
+        }
+
+    def add_poke(self, st):
+        if not self.pslot1:
+            self.pslot1 = st
+            db.session.commit()
+        elif not self.pslot2:
+            self.pslot2 = st
+            db.session.commit()
+        elif not self.pslot3:
+            self.pslot3 = st
+            db.session.commit()
+        elif not self.pslot4:
+            self.pslot4 = st
+            db.session.commit()
+        elif not self.pslot5:
+            self.pslot5 = st
+            db.session.commit()
+        else:
+            return False
+
+    def rem_poke(self, st):
+        if self.pslot1 == st:
+            self.pslot1 = None
+            db.session.commit()
+        elif self.pslot2 == st:
+            self.pslot2 = None
+            db.session.commit()
+        elif self.pslot3 == st:
+            self.pslot3 = None
+            db.session.commit()
+        elif self.pslot4 == st:
+            self.pslot4 = None
+            db.session.commit()
+        elif self.pslot5 == st:
+            self.pslot5 = None
+            db.session.commit()
+        else:
+            return False
+
 class Pokemon(db.Model):  
     id = db.Column(db.Integer, primary_key=True)
     # Taking these out to simplify the process here- might revisit this in future.
@@ -80,6 +127,11 @@ class Pokemon(db.Model):
             'weight' : self.weight,
             'id' : self.id
         }
+
+    def catch(self, st):
+        self.user = st
+        db.session.commit()
+
     def disp_poke(self):
         print(f"\n{self.name.title()}- Weight- {self.weight} Height-{self.height} HP-{self.hp} Defense-{self.defense} Attack-{self.att}\n")
         print(f"\nSprite-{self.sprite},\n Shiny-{self.shiny_sprite}\n\n")
@@ -97,9 +149,7 @@ class Pokedex:
     def add_poke(self, pname):
         mempoke = Pokemon.query.filter(Pokemon.name==pname).first()
         if mempoke:
-            print(mempoke, type(mempoke))
             data = mempoke.to_dict()
-            print(data)
             hp = data['hp']
             defense = data['defense']
             att = data['att']
