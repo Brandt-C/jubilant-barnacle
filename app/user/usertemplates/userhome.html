@@ -28,7 +28,7 @@
     <div class="card2" style="width: 18rem;">
       <img src="{{dex.pokemon[x].sprite}}" class="card-img-top" alt="{{dex.pokemon[x].name}} image">
       <div class="card-body">
-        <h5 class="card-title">{{dex.pokemon[x].name}}</h5>
+        <h5 class="card-title">{{dex.pokemon[x].name.title()}}</h5>
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item"><b>Height-</b> {{dex.pokemon[x].height}}</li>
@@ -42,7 +42,10 @@
         {% if dex.pokemon[x].user %}
         <a href="#" class="card-link" aria-disabled="true">Caught by-{{dex.pokemon[x].user}}</a>
         {% elif not dex.pokemon[x].user %}
-        <form method="POST">{{catch.submit(class='btn btn-danger')}}</form>
+        <form method="POST" action="{{ url_for('user.userHome') }}">
+          <input type="hidden" name="name-catch" value="{{dex.pokemon[x].name}}" />
+          <input type="submit" value="catch" name="catch-btn"/>
+        </form>
         {% endif %}
       </div>
     </div>

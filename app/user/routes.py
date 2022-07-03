@@ -53,27 +53,26 @@ def signOut():
 @login_required
 def userHome():
     fpform = FindPokeForm()
-    catch = Catch()
+    # catch = Catch()
     dex = Pokedex()
     mydex = Pokedex()
     my_dict = current_user.poke_dict()
     print(my_dict)
     if request.method == "POST":
         print(fpform.data)
-        print('\n^^^fpform------\/ \/ \/catch')
-        print(catch.data)
+        print('\n^^^fpform. . . \n')
         
+        if request.form.get('catch-btn') == 'catch':
+                pname = request.form.get('name-catch')
+                print(pname)
+                current_user.add_poke(pname)
+                upoke = Pokemon.query.filter(Pokemon.name==pname).first()
+                upoke.catch(current_user.username)
+                return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)
+
         if fpform.data:
             dex.add_poke(fpform.data['poke'])
-            return render_template('userhome.html', catch=catch, my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)
-        
-        #  NEED to re-work logic here- is this a flowers for Algernon kinda story?
-        
-        # if catch.data:
-        #     print(catch.data)
-        #     current_user.add_poke(namecatch[0])
-        #     upoke = Pokemon.query.filter(Pokemon.name==namecatch[0]).first()
-        #     upoke.catch(current_user.username)
-        #     return render_template('userhome.html', catch=catch, my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)
+            return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)
+  
     flash('Welcome back!', category='success')
-    return render_template('userhome.html', catch=catch, my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)
+    return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)
