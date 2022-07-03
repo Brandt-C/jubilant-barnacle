@@ -102,7 +102,7 @@ class Pokemon(db.Model):
     weight = db.Column(db.Integer)
     user = db.Column(db.String(50))
 
-    def __init__(self, name, hp, defense, att, speed, sprite, shiny_sprite, height, weight, id):
+    def __init__(self, name, hp, defense, att, speed, sprite, shiny_sprite, height, weight, id, user):
         self.name = name
         self.hp = hp
         self.defense = defense
@@ -113,6 +113,7 @@ class Pokemon(db.Model):
         self.height = height
         self.weight = weight
         self.id = id
+        self.user = user
 
     def to_dict(self):
         return {
@@ -125,7 +126,8 @@ class Pokemon(db.Model):
             'shiny_sprite' : self.shiny_sprite,
             'height': self.height,
             'weight' : self.weight,
-            'id' : self.id
+            'id' : self.id,
+            'user' :self.user
         }
 
     def catch(self, st):
@@ -159,7 +161,8 @@ class Pokedex:
             height = data['height']
             weight = data['weight']
             id = data['id']
-            new_poke = Pokemon(pname, hp, defense, att, speed, sprite, shiny_sprite, height, weight, id)
+            user = data['user']
+            new_poke = Pokemon(pname, hp, defense, att, speed, sprite, shiny_sprite, height, weight, id, user)
             self.pokemon[pname] = new_poke
         else:
             result = r.get("https://pokeapi.co/api/v2/pokemon/" + pname.lower())
@@ -173,8 +176,9 @@ class Pokedex:
             height = data['height']
             weight = data['weight']
             id = data['id']
+            user = None
             
-            new_poke = Pokemon(pname, hp, defense, att, speed, sprite, shiny_sprite, height, weight, id)
+            new_poke = Pokemon(pname, hp, defense, att, speed, sprite, shiny_sprite, height, weight, id, user)
             db.session.add(new_poke)
             db.session.commit()
                         #Taking these out to simplify for now- may revisit later

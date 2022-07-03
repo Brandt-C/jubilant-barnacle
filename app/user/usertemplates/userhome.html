@@ -36,10 +36,11 @@
         <li class="list-group-item"><b>Attack-</b> {{dex.pokemon[x].att}}</li>
         <li class="list-group-item"><b>Defense-</b> {{dex.pokemon[x].defense}}</li>
         <li class="list-group-item"><b>Speed-</b> {{dex.pokemon[x].speed}}</li>
+        <li class="list-group-item"><b>Speed-</b> {{dex.pokemon[x].user}}</li>
       </ul>
       <div class="card-body">
-        {% if dex.pokemon[x].user %}
-        <a href="#" class="card-link" aria-disabled="true">Caught by-{{dex.pokemon[x].user}}</a>
+        {% if dex.pokemon[x].user != None %}
+        <a href="#" class="card-link" aria-disabled="true">Caught by-<strong>{{dex.pokemon[x].user}}</strong></a>
         {% elif not dex.pokemon[x].user %}
         <form method="POST" action="{{ url_for('user.userHome') }}">
           <input type="hidden" name="name-catch" value="{{dex.pokemon[x].name}}" />
@@ -55,23 +56,27 @@
 
 {% block content3 %}
 <div class="container">
-  <h2><strong>{{current_user.username}}'s Roster:</strong></h2>
-  {% for x in mydex.pokemon %}
-  <div class="card2" style="width: 18rem;">
-    <img src="{{mydex.pokemon[x].sprite}}" class="card-img-top" alt="{{mydex.pokemon[x].name}} image">
-    <div class="card-body">
-      <h5 class="card-title">{{mydex.pokemon[x].name.title()}}</h5>
+  <div class="row justify-content-center">
+    <h2><strong>{{current_user.username}}'s Roster:</strong></h2>
+  </div>
+  <div class="row justify-content-center">
+    {% for x in mydex.pokemon %}
+    <div class="card2" style="width: 18rem;">
+      <img src="{{mydex.pokemon[x].sprite}}" class="card-img-top" alt="{{mydex.pokemon[x].name}} image">
+      <div class="card-body">
+        <h5 class="card-title">{{mydex.pokemon[x].name.title()}}</h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><b>Height-</b> {{mydex.pokemon[x].height}}</li>
+        <li class="list-group-item"><b>Weight-</b> {{mydex.pokemon[x].weight}}</li>
+        <li class="list-group-item"><b>HP-</b> {{mydex.pokemon[x].hp}}</li>
+        <li class="list-group-item"><b>Attack-</b> {{mydex.pokemon[x].att}}</li>
+        <li class="list-group-item"><b>Defense-</b> {{mydex.pokemon[x].defense}}</li>
+        <li class="list-group-item"><b>Speed-</b> {{mydex.pokemon[x].speed}}</li>
+      </ul>
     </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item"><b>Height-</b> {{mydex.pokemon[x].height}}</li>
-      <li class="list-group-item"><b>Weight-</b> {{mydex.pokemon[x].weight}}</li>
-      <li class="list-group-item"><b>HP-</b> {{mydex.pokemon[x].hp}}</li>
-      <li class="list-group-item"><b>Attack-</b> {{mydex.pokemon[x].att}}</li>
-      <li class="list-group-item"><b>Defense-</b> {{mydex.pokemon[x].defense}}</li>
-      <li class="list-group-item"><b>Speed-</b> {{mydex.pokemon[x].speed}}</li>
-    </ul>
+    {% endfor %}
 
   </div>
-  {% endfor %}
-
+</div>
   {% endblock %}
