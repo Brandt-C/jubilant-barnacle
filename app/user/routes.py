@@ -57,14 +57,16 @@ def userHome():
     dex = Pokedex()
     mydex = Pokedex()
     my_dict = current_user.poke_dict()
-    print(my_dict)
+    for x in my_dict.values():
+        if x:
+            mydex.add_poke(x)
     if request.method == "POST":
-        print(fpform.data)
-        print('\n^^^fpform. . . \n')
+        # print(fpform.data)
+        # print('\n^^^fpform. . . \n')
         
         if request.form.get('catch-btn') == 'catch':
                 pname = request.form.get('name-catch')
-                print(pname)
+                # print(pname)
                 current_user.add_poke(pname)
                 upoke = Pokemon.query.filter(Pokemon.name==pname).first()
                 upoke.catch(current_user.username)
