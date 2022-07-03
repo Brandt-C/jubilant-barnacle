@@ -134,6 +134,10 @@ class Pokemon(db.Model):
         self.user = st
         db.session.commit()
 
+    def release(self):
+        self.user = None
+        db.session.commit()
+
     def disp_poke(self):
         print(f"\n{self.name.title()}- Weight- {self.weight} Height-{self.height} HP-{self.hp} Defense-{self.defense} Attack-{self.att}\n")
         print(f"\nSprite-{self.sprite},\n Shiny-{self.shiny_sprite}\n\n")

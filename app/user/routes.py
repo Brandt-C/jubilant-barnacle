@@ -67,9 +67,23 @@ def userHome():
         if request.form.get('catch-btn') == 'catch':
                 pname = request.form.get('name-catch')
                 # print(pname)
-                current_user.add_poke(pname)
+                if pname not in my_dict:
+                    current_user.add_poke(pname)
+                    upoke = Pokemon.query.filter(Pokemon.name==pname).first()
+                    upoke.catch(current_user.username)
+                    flash(f'{pname} caught!', category='success')
+                    return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)
+                else:
+                    flash(f'{pname} already caught!', category='danger')
+                    return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)
+        
+        if request.form.get('release-btn') == 'release':
+                pname = request.form.get('name-release')
+                # print(pname)
+                current_user.rem_poke(pname)
                 upoke = Pokemon.query.filter(Pokemon.name==pname).first()
-                upoke.catch(current_user.username)
+                upoke.release()
+                flash(f'{pname} released!', category='warning')
                 return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)
 
         if fpform.data:

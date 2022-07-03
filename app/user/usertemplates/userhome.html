@@ -36,11 +36,10 @@
         <li class="list-group-item"><b>Attack-</b> {{dex.pokemon[x].att}}</li>
         <li class="list-group-item"><b>Defense-</b> {{dex.pokemon[x].defense}}</li>
         <li class="list-group-item"><b>Speed-</b> {{dex.pokemon[x].speed}}</li>
-        <li class="list-group-item"><b>Speed-</b> {{dex.pokemon[x].user}}</li>
       </ul>
       <div class="card-body">
         {% if dex.pokemon[x].user != None %}
-        <a href="#" class="card-link" aria-disabled="true">Caught by-<strong>{{dex.pokemon[x].user}}</strong></a>
+        <h6>Caught by-<strong>{{dex.pokemon[x].user}}</strong></h6>
         {% elif not dex.pokemon[x].user %}
         <form method="POST" action="{{ url_for('user.userHome') }}">
           <input type="hidden" name="name-catch" value="{{dex.pokemon[x].name}}" />
@@ -74,6 +73,12 @@
         <li class="list-group-item"><b>Defense-</b> {{mydex.pokemon[x].defense}}</li>
         <li class="list-group-item"><b>Speed-</b> {{mydex.pokemon[x].speed}}</li>
       </ul>
+      <div class="card-body">
+        <form method="POST" action="{{ url_for('user.userHome') }}">
+          <input type="hidden" name="name-release" value="{{mydex.pokemon[x].name}}"/>
+          <input type="submit" value="release" name="release-btn"/>
+        </form>
+      </div>
     </div>
     {% endfor %}
 
