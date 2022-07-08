@@ -100,4 +100,7 @@ def userHome():
 @user.route('/battle', methods=['GET', 'POST'])
 @login_required
 def battle():
-    return render_template('battle.html')
+    ulist = User.query.filter(User.username=="%").all()
+    # This ^^^ is not working as intended
+    print(ulist)
+    return render_template('battle.html', ulist=ulist)
