@@ -9,7 +9,7 @@
 <div class="container-fluid">
   <div class="row justify-content-md-center">
     <div class="card1" style="width: 18rem;">
-      <img src="../../static/images/9-mega.png" class="card-img-top" alt="pikachu placeholder image">
+      <img src="../../static/images/9-mega.png" class="card-img-top" alt="poke character placeholder image">
       <div class="card-body">
         <h5 class="card-title">Find Poke to catch!</h5>
       </div>
@@ -61,7 +61,7 @@
   <div class="row justify-content-center">
     {% for x in mydex.pokemon %}
     <div class="card2" style="width: 18rem;">
-      <img src="{{mydex.pokemon[x].sprite}}" class="card-img-top" alt="{{mydex.pokemon[x].name}} image">
+      <img src="{{mydex.pokemon[x].sprite}}" class="card-img-top img-fluid" alt="{{mydex.pokemon[x].name}} image">
       <div class="card-body">
         <h5 class="card-title">{{mydex.pokemon[x].name.title()}}</h5>
       </div>

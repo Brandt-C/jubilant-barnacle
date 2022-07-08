@@ -87,8 +87,17 @@ def userHome():
                 return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)
 
         if fpform.data:
-            dex.add_poke(fpform.data['poke'])
-            return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)
+            try:
+                dex.add_poke(fpform.data['poke'])
+                return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)
+            except:
+                flash(f'Poke not found, try again!', category='danger')
+                return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)
   
     flash('Welcome back!', category='success')
     return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)
+
+@user.route('/battle', methods=['GET', 'POST'])
+@login_required
+def battle():
+    return render_template('battle.html')
