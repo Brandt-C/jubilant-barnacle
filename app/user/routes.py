@@ -1,6 +1,5 @@
 from requests import request
 from flask import Blueprint, render_template, redirect, url_for, flash, request
-from sqlalchemy import select
 user = Blueprint('user', __name__, template_folder='usertemplates', url_prefix='/user')
 
 from .userforms import Catch, SignInForm, RegForm, FindPokeForm
@@ -62,12 +61,8 @@ def userHome():
         if x:
             mydex.add_poke(x)
     if request.method == "POST":
-        # print(fpform.data)
-        # print('\n^^^fpform. . . \n')
-        
         if request.form.get('catch-btn') == 'catch':
                 pname = request.form.get('name-catch')
-                # print(pname)
                 if pname not in my_dict:
                     current_user.add_poke(pname)
                     upoke = Pokemon.query.filter(Pokemon.name==pname).first()
@@ -80,7 +75,6 @@ def userHome():
         
         if request.form.get('release-btn') == 'release':
                 pname = request.form.get('name-release')
-                # print(pname)
                 current_user.rem_poke(pname)
                 upoke = Pokemon.query.filter(Pokemon.name==pname).first()
                 upoke.release()

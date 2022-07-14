@@ -6,6 +6,7 @@
 {% block content %}
 
 <div class="container-fluid">
+    <h3>Choose opponent</h3>
     <div class="row justify-content-center">
         <form method="POST" action="{{ url_for('user.battle') }}">
 {% for x in ulist %}
