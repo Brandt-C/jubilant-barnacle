@@ -1,5 +1,6 @@
 from requests import request
 from flask import Blueprint, render_template, redirect, url_for, flash, request
+from sqlalchemy import select
 user = Blueprint('user', __name__, template_folder='usertemplates', url_prefix='/user')
 
 from .userforms import Catch, SignInForm, RegForm, FindPokeForm
@@ -100,7 +101,8 @@ def userHome():
 @user.route('/battle', methods=['GET', 'POST'])
 @login_required
 def battle():
-    ulist = User.query.filter(User.username=="%").all()
+    ulist = db.session.query(User.username).all()
+    # ulist = User.query.filter(User.username=='%').all()
     # This ^^^ is not working as intended
     print(ulist)
     return render_template('battle.html', ulist=ulist)
