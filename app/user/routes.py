@@ -97,5 +97,24 @@ def userHome():
 def battle():
     ulist1 = db.session.query(User.username).all()
     ulist = list(map(lambda x: str(x)[2:-3], ulist1))
-    print(ulist)
-    return render_template('battle.html', ulist=ulist)
+    cuserdex = Pokedex()
+    oppuserdex = Pokedex()
+
+    my_dict = current_user.poke_dict()
+    for x in my_dict.values():
+        if x:
+            cuserdex.add_poke(x)
+
+    if request.method == "POST":
+        if request.form.get('catch-btn'):
+                oppname = request.form.get('catch-btn')
+                opp_user = User.query.filter(User.username==oppname).first()
+                opp_pokes = opp_user.poke_dict()
+                print(opp_pokes, oppname, opp_user)
+                
+                for x in opp_pokes.values():
+                    if x:
+                        oppuserdex.add_poke(x)
+                return render_template('battle.html', ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex, oppname=oppname)
+    
+    return render_template('battle.html', ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex)

@@ -9,16 +9,71 @@
     <h3>Choose opponent</h3>
     <div class="row justify-content-center">
         <form method="POST" action="{{ url_for('user.battle') }}">
-{% for x in ulist %}
-            <input type="hidden" name="user-catch" value="{{x}}" />
-            <input type="submit" value="{{x}}" name="catch-btn" />
-{% endfor %}
-          </form>
+            {% for x in ulist %}
+            <input type="hidden" name="user-name" value="{{x}}" />
+            <button type="submit" value="{{x}}" name="catch-btn">{{x}}</button>
+            {% endfor %}
+        </form>
     </div>
 </div>
 {% endblock %}
 
 {% block content2 %}
+<div class="container">
+    <div class="row justify-content-center">
+        <h2><strong>{{oppname}}:</strong></h2>
+    </div>
+    <div class="row justify-content-center">
+        {% for x in oppuserdex.pokemon %}
+        <div class="card2" style="width: 12rem;">
+            <img src="{{oppuserdex.pokemon[x].sprite}}" class="card-img-top img-fluid"
+                alt="{{oppuserdex.pokemon[x].name}} image">
+            <div class="card-body">
+                <h5 class="card-title">{{oppuserdex.pokemon[x].name.title()}}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><b>Height-</b> {{oppuserdex.pokemon[x].height}}</li>
+                <li class="list-group-item"><b>Weight-</b> {{oppuserdex.pokemon[x].weight}}</li>
+                <li class="list-group-item"><b>HP-</b> {{oppuserdex.pokemon[x].hp}}</li>
+                <li class="list-group-item"><b>Attack-</b> {{oppuserdex.pokemon[x].att}}</li>
+                <li class="list-group-item"><b>Defense-</b> {{oppuserdex.pokemon[x].defense}}</li>
+                <li class="list-group-item"><b>Speed-</b> {{oppuserdex.pokemon[x].speed}}</li>
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="row justify-content-center">
+        <h2><strong><b>VS-</b></strong></h2>
+    </div>
+
+
+
+    <div class="row justify-content-center">
+        <h2><strong>{{current_user.username}}:</strong></h2>
+    </div>
+    <div class="row justify-content-center">
+        {% for x in cuserdex.pokemon %}
+        <div class="card2" style="width: 12rem;">
+            <img src="{{cuserdex.pokemon[x].sprite}}" class="card-img-top img-fluid"
+                alt="{{cuserdex.pokemon[x].name}} image">
+            <div class="card-body">
+                <h5 class="card-title">{{cuserdex.pokemon[x].name.title()}}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><b>Height-</b> {{cuserdex.pokemon[x].height}}</li>
+                <li class="list-group-item"><b>Weight-</b> {{cuserdex.pokemon[x].weight}}</li>
+                <li class="list-group-item"><b>HP-</b> {{cuserdex.pokemon[x].hp}}</li>
+                <li class="list-group-item"><b>Attack-</b> {{cuserdex.pokemon[x].att}}</li>
+                <li class="list-group-item"><b>Defense-</b> {{cuserdex.pokemon[x].defense}}</li>
+                <li class="list-group-item"><b>Speed-</b> {{cuserdex.pokemon[x].speed}}</li>
+            </ul>
+            
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
 {% endblock %}
 
 {% block content3 %}
