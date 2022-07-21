@@ -29,6 +29,8 @@ class User(db.Model, UserMixin):
     pslot3 = db.Column(db.String(50))
     pslot4 = db.Column(db.String(50))
     pslot5 = db.Column(db.String(50))
+    wins = db.Column(db.Integer, default=0)
+    loses = db.Column(db.Integer, default=0)
 
     def __init__(self, username, email, password, first_name= "", last_name = ""):
         self.username =username
