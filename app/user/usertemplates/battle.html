@@ -22,6 +22,32 @@
 
 {% block content2 %}
 <div class="container">
+
+    <div class="row justify-content-center">
+        <h2><strong>{{current_user.username}}:</strong></h2>
+    </div>
+    <div class="row justify-content-center">
+        {% for x in cuserdex.pokemon %}
+        <div class="card2" style="width: 12rem;">
+            <img src="{{cuserdex.pokemon[x].sprite}}" class="card-img-top img-fluid"
+                alt="{{cuserdex.pokemon[x].name}} image">
+            <div class="card-body">
+                <h5 class="card-title">{{cuserdex.pokemon[x].name.title()}}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><b>Height-</b> {{cuserdex.pokemon[x].height}}</li>
+                <li class="list-group-item"><b>Weight-</b> {{cuserdex.pokemon[x].weight}}</li>
+                <li class="list-group-item"><b>HP-</b> {{cuserdex.pokemon[x].hp}}</li>
+                <li class="list-group-item"><b>Attack-</b> {{cuserdex.pokemon[x].att}}</li>
+                <li class="list-group-item"><b>Defense-</b> {{cuserdex.pokemon[x].defense}}</li>
+                <li class="list-group-item"><b>Speed-</b> {{cuserdex.pokemon[x].speed}}</li>
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="row justify-content-center">
+        <h2><strong><b>VS-</b></strong></h2>
+    </div>
     <div class="row justify-content-center">
         <h2><strong>{{oppname}}:</strong></h2>
     </div>
@@ -44,39 +70,13 @@
         </div>
         {% endfor %}
     </div>
-    <div class="row justify-content-center">
-        <h2><strong><b>VS-</b></strong></h2>
-    </div>
 
 
-
-    <div class="row justify-content-center">
-        <h2><strong>{{current_user.username}}:</strong></h2>
-    </div>
-    <div class="row justify-content-center">
-        {% for x in cuserdex.pokemon %}
-        <div class="card2" style="width: 12rem;">
-            <img src="{{cuserdex.pokemon[x].sprite}}" class="card-img-top img-fluid"
-                alt="{{cuserdex.pokemon[x].name}} image">
-            <div class="card-body">
-                <h5 class="card-title">{{cuserdex.pokemon[x].name.title()}}</h5>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><b>Height-</b> {{cuserdex.pokemon[x].height}}</li>
-                <li class="list-group-item"><b>Weight-</b> {{cuserdex.pokemon[x].weight}}</li>
-                <li class="list-group-item"><b>HP-</b> {{cuserdex.pokemon[x].hp}}</li>
-                <li class="list-group-item"><b>Attack-</b> {{cuserdex.pokemon[x].att}}</li>
-                <li class="list-group-item"><b>Defense-</b> {{cuserdex.pokemon[x].defense}}</li>
-                <li class="list-group-item"><b>Speed-</b> {{cuserdex.pokemon[x].speed}}</li>
-            </ul>
-            
-        </div>
-        {% endfor %}
-
-    </div>
 </div>
 
 {% endblock %}
 
 {% block content3 %}
+
+
 {% endblock %}

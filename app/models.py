@@ -9,6 +9,7 @@ from uuid import uuid4
 
 
 from flask_login import LoginManager, UserMixin
+from random import choices
 
 login = LoginManager()
 
@@ -86,6 +87,14 @@ class User(db.Model, UserMixin):
             db.session.commit()
         else:
             return False
+
+    def winner(self):
+        self.wins += 1
+        db.session.commit()
+
+    def loser(self):
+        self.loses += 1
+        db.session.commit()
 
 class Pokemon(db.Model):  
     id = db.Column(db.Integer, primary_key=True)
@@ -202,3 +211,42 @@ class Pokedex:
     def show_dex(self):
         for n in self.pokemon:
             self.pokemon[n].disp_poke()
+
+class Battle:
+    def __init__(self, pokdex1, pokdex2):
+        self.pokdex1 = pokdex1
+        self.pokdex2 = pokdex2
+        self.summary = {}
+        self.p1stats = {
+            'health' : 0,
+            'attack' : 0,
+            'speed' : 0
+        }
+        self.p2stats = {
+            'health' : 0,
+            'attack' : 0,
+            'speed' : 0
+        }
+        self.round = 0
+        self.p1 = None
+        self.p2 = None
+    
+    def loadPlayers(self):
+        for x in self.pokdex1.pokemon:
+            self.p1stats['health'] += self.pokdex1.pokemon[x].hp
+            self.p1stats['health'] += self.pokdex1.pokemon[x].defense
+            self.p1stats['attack'] += self.pokdex1.pokemon[x].att
+            self.p1stats['speed'] += self.pokdex1.pokemon[x].speed
+        for x in self.pokdex2.pokemon:
+            self.p2stats['health'] += self.pokdex2.pokemon[x].hp
+            self.p2stats['health'] += self.pokdex2.pokemon[x].defense
+            self.p2stats['attack'] += self.pokdex2.pokemon[x].att
+            self.p2stats['speed'] += self.pokdex2.pokemon[x].speed
+    
+    def attackChoice(self):
+        p1speed = int(self.p1stats['speed'] / (self.p1stats['speed'] + self.p2stats['speed'])*100)
+        p2speed = 100 - p1speed
+        return choices(['p1', 'p2'], weights=(p1speed, p2speed), k=1)
+
+
+    

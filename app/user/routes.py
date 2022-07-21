@@ -116,5 +116,4 @@ def battle():
                     if x:
                         oppuserdex.add_poke(x)
                 return render_template('battle.html', ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex, oppname=oppname)
-    
     return render_template('battle.html', ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex)

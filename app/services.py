@@ -11,3 +11,4 @@
         
 #     def disp(self):
 #         print(f"Name-{self.name}\tID-{self.id}\tPower-{self.power}\tPP-{self.pp}")
+
