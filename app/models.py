@@ -89,11 +89,11 @@ class User(db.Model, UserMixin):
             return False
 
     def winner(self):
-        self.wins += 1
+        self.wins = self.wins + 1
         db.session.commit()
 
     def loser(self):
-        self.loses += 1
+        self.loses = self.wins + 1
         db.session.commit()
 
 class Pokemon(db.Model):  

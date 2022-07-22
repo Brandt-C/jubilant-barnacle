@@ -2,7 +2,7 @@ from requests import request
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 user = Blueprint('user', __name__, template_folder='usertemplates', url_prefix='/user')
 
-from .userforms import Catch, SignInForm, RegForm, FindPokeForm
+from .userforms import SignInForm, RegForm, FindPokeForm, BattleForm
 from app.models import Pokemon, User, db, Pokedex, Battle
 from werkzeug.security import check_password_hash
 from flask_login import login_user, current_user, login_required, logout_user
@@ -95,6 +95,7 @@ def userHome():
 @user.route('/battle', methods=['GET', 'POST'])
 @login_required
 def battle():
+    bform = BattleForm()
     ulist1 = db.session.query(User.username).all()
     ulist = list(map(lambda x: str(x)[2:-3], ulist1))
     cuserdex = Pokedex()
@@ -115,19 +116,22 @@ def battle():
             for x in opp_pokes.values():
                 if x:
                     oppuserdex.add_poke(x)
-            return render_template('battle.html', ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex, oppname=oppname)
-            # if request.form.get('battle-btn'):
-            #     b = Battle(cuserdex, oppuserdex, un, oppname)
-            #     b.run()
-            #     summ = b.summary
-            #     if summ['winner'] == un:
-            #         current_user.winner()
-            #         opp_user.loser()
-            #     elif summ['winner'] == oppname:
-            #         current_user.loser()
-            #         opp_user.winner()
-            #     return render_template('battle.html', b=b, summ=summ, ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex, oppname=oppname)
+            return render_template('battle.html', ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex, oppname=oppname, bform=bform)
+            
+        if bform.data:
+            b = Battle(cuserdex, oppuserdex, un, oppname)
+            b.run()
+            summ = b.summary
+            if summ['winner'] == un:
+                current_user.winner()
+                opp_user.loser()
+            elif summ['winner'] == oppname:
+                current_user.loser()
+                opp_user.winner()
+            flash(f"{summ['winner']} WON THE BATTLE!!!", category='success')
+            flash(f"It's a sad day for {summ['loser']}, they lost. . .")
+            return render_template('battle.html', b=b, summ=summ, ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex, oppname=oppname)
             
 
             
-    return render_template('battle.html', ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex, oppname=oppname)
+    return render_template('battle.html', ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex, oppname=oppname, bform=bform)
