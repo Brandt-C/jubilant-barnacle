@@ -213,7 +213,7 @@ class Pokedex:
             self.pokemon[n].disp_poke()
 
 class Battle:
-    def __init__(self, pokdex1, pokdex2):
+    def __init__(self, pokdex1, pokdex2, username, oppusername):
         self.pokdex1 = pokdex1
         self.pokdex2 = pokdex2
         self.summary = {}
@@ -228,8 +228,9 @@ class Battle:
             'speed' : 0
         }
         self.round = 0
-        self.p1 = None
-        self.p2 = None
+        self.p1 = username
+        self.p2 = oppusername
+        self.in_prog = True
     
     def loadPlayers(self):
         for x in self.pokdex1.pokemon:
@@ -248,5 +249,40 @@ class Battle:
         p2speed = 100 - p1speed
         return choices(['p1', 'p2'], weights=(p1speed, p2speed), k=1)
 
+    def attackPower(self):
+        attlist = [30,50,70,90]
+        return choices(attlist, weights=(20, 50, 20, 10), k=1)[0]/100
 
-    
+    def attack(self):
+        x = self.attackChoice()
+        y = self.attackPower()
+        if x[0] == "p1":
+            self.round += 1
+            z = int(self.p1stats['attack'] * y)
+            self.p2stats['health'] -= z
+            self.summary[self.round] = f'Round {self.round}: {self.p1}\'s team attacks {self.p2}\'s team doing {z} damage!'
+        elif x[0] == "p2":
+            self.round += 1
+            z = int(self.p2stats['attack'] * y)
+            self.p1stats['health'] -= z
+            self.summary[self.round] = f'Round {self.round}: {self.p2}\'s team attacks {self.p1}\'s team doing {z} damage!'  
+
+    def checkHealth(self):
+        if self.p1stats['health'] < 1:
+            self.summary['summary'] = f"{self.p2} has triumphed over {self.p1} in {self.round} rounds!"
+            self.summary['winner'] = f'{self.p2}'
+            self.summary['loser'] = f'{self.p1}'
+            self.in_prog = False
+        elif self.p2stats['health'] < 1:
+            self.summary['summary'] = f"{self.p1} has triumphed over {self.p2} in {self.round} rounds!"
+            self.summary['winner'] = f'{self.p1}'
+            self.summary['loser'] = f'{self.p2}'
+            self.in_prog = False
+        return True
+
+    def run(self):
+        self.loadPlayers()
+        while self.in_prog == True:
+            self.attack()
+            self.checkHealth()
+        return self.summary

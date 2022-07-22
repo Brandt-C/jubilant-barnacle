@@ -70,7 +70,12 @@
         </div>
         {% endfor %}
     </div>
-
+    {% if oppname %}
+    <form method="POST" action="{{ url_for('user.battle') }}">
+    <!-- <input type="hidden" name="user-name" value="{{x}}" /> -->
+    <button type="submit" value="battle" name="battle-btn">Battle!</button>
+    </form>
+    {% endif %}
 
 </div>
 

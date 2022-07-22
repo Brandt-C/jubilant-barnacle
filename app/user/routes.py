@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, redirect, url_for, flash, request
 user = Blueprint('user', __name__, template_folder='usertemplates', url_prefix='/user')
 
 from .userforms import Catch, SignInForm, RegForm, FindPokeForm
-from app.models import Pokemon, User, db, Pokedex
+from app.models import Pokemon, User, db, Pokedex, Battle
 from werkzeug.security import check_password_hash
 from flask_login import login_user, current_user, login_required, logout_user
 
@@ -99,21 +99,35 @@ def battle():
     ulist = list(map(lambda x: str(x)[2:-3], ulist1))
     cuserdex = Pokedex()
     oppuserdex = Pokedex()
-
+    un = current_user.username
     my_dict = current_user.poke_dict()
+    oppname = None
     for x in my_dict.values():
         if x:
             cuserdex.add_poke(x)
-
+    print(oppname)
     if request.method == "POST":
         if request.form.get('catch-btn'):
-                oppname = request.form.get('catch-btn')
-                opp_user = User.query.filter(User.username==oppname).first()
-                opp_pokes = opp_user.poke_dict()
-                print(opp_pokes, oppname, opp_user)
-                
-                for x in opp_pokes.values():
-                    if x:
-                        oppuserdex.add_poke(x)
-                return render_template('battle.html', ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex, oppname=oppname)
-    return render_template('battle.html', ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex)
+            oppname = request.form.get('catch-btn')
+            opp_user = User.query.filter(User.username==oppname).first()
+            opp_pokes = opp_user.poke_dict()
+            print(opp_pokes, oppname, opp_user)
+            for x in opp_pokes.values():
+                if x:
+                    oppuserdex.add_poke(x)
+            return render_template('battle.html', ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex, oppname=oppname)
+            # if request.form.get('battle-btn'):
+            #     b = Battle(cuserdex, oppuserdex, un, oppname)
+            #     b.run()
+            #     summ = b.summary
+            #     if summ['winner'] == un:
+            #         current_user.winner()
+            #         opp_user.loser()
+            #     elif summ['winner'] == oppname:
+            #         current_user.loser()
+            #         opp_user.winner()
+            #     return render_template('battle.html', b=b, summ=summ, ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex, oppname=oppname)
+            
+
+            
+    return render_template('battle.html', ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex, oppname=oppname)
