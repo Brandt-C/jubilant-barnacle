@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField
+from wtforms import StringField, SubmitField, PasswordField, HiddenField
 from wtforms.validators import DataRequired, EqualTo, Email
 
 class RegForm(FlaskForm):
@@ -21,4 +21,5 @@ class FindPokeForm(FlaskForm):
     submit = SubmitField('Find')
 
 class BattleForm(FlaskForm):
+    opp = HiddenField('')
     submit = SubmitField('Battle!')

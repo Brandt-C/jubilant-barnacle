@@ -72,6 +72,7 @@
     </div>
     {% if oppname %}
     <form method="POST" action="{{ url_for('user.battle') }}">
+        {{ bform.opp(value=oppname) }}
         {{ bform.submit(class='btn btn-danger') }}
     </form>
     {% endif %}

@@ -116,12 +116,22 @@ def battle():
             for x in opp_pokes.values():
                 if x:
                     oppuserdex.add_poke(x)
-            return render_template('battle.html', ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex, oppname=oppname, bform=bform)
+            return render_template('battle.html', ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex, oppname=oppname, bform=bform, opp_user=opp_user)
             
         if bform.data:
+            print(f'\nBform data-\t{bform.data}')
+            oppname = bform.data['opp']
+            opp_user = User.query.filter(User.username==oppname).first()
+            opp_dict = opp_user.poke_dict()
+            for x in opp_dict.values():
+                if x:
+                    oppuserdex.add_poke(x)
             b = Battle(cuserdex, oppuserdex, un, oppname)
             b.run()
+            
+            print(oppname, opp_user)
             summ = b.summary
+            print(summ)
             if summ['winner'] == un:
                 current_user.winner()
                 opp_user.loser()
@@ -129,8 +139,8 @@ def battle():
                 current_user.loser()
                 opp_user.winner()
             flash(f"{summ['winner']} WON THE BATTLE!!!", category='success')
-            flash(f"It's a sad day for {summ['loser']}, they lost. . .")
-            return render_template('battle.html', b=b, summ=summ, ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex, oppname=oppname)
+            flash(f"It's a sad day for {summ['loser']}, they lost. . .", category='warning')
+            return render_template('battle.html', b=b, summ=summ, ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex, oppname=oppname, opp_user=opp_user, bform=bform)
             
 
             

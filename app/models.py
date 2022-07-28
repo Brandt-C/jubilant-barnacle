@@ -30,8 +30,8 @@ class User(db.Model, UserMixin):
     pslot3 = db.Column(db.String(50))
     pslot4 = db.Column(db.String(50))
     pslot5 = db.Column(db.String(50))
-    wins = db.Column(db.Integer, default=0)
-    loses = db.Column(db.Integer, default=0)
+    wins = db.Column(db.String(20))
+    loses = db.Column(db.String(20))
 
     def __init__(self, username, email, password, first_name= "", last_name = ""):
         self.username =username
@@ -89,12 +89,24 @@ class User(db.Model, UserMixin):
             return False
 
     def winner(self):
-        self.wins = self.wins + 1
-        db.session.commit()
+        if self.wins == None:
+            self.wins = str(1)
+            db.session.commit()
+        else:
+            x = self.wins
+            y = int(x) + 1
+            self.wins = str(y)
+            db.session.commit()
 
     def loser(self):
-        self.loses = self.wins + 1
-        db.session.commit()
+        if self.loses == None:
+            self.loses = str(1)
+            db.session.commit()
+        else:
+            x = self.loses
+            y = int(x) + 1
+            self.loses = str(y)
+            db.session.commit()
 
 class Pokemon(db.Model):  
     id = db.Column(db.Integer, primary_key=True)
