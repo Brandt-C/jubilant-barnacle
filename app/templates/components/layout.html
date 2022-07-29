@@ -14,14 +14,23 @@
         integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
         crossorigin="anonymous"></script>
     {% block head %}
-
+    <link rel="stylesheet" href="../../static/css/layout.css">
     {% endblock %}
 </head>
 
 <body>
-    <nav class="navbar navbar-danger bg-danger">
-        <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">Poke'</span>
+    <nav id="nav" class="navbar navbar-danger bg-danger">
+        <div id="nav-cont" class="container-fluid bg-danger">
+            <span class="navbar-brand mb-0 h1">Poke-<strong>Battle!</strong> </span>
+
+            {% if current_user.is_authenticated %}
+            <a class="nav-link" href="{{ url_for('user.userHome')}}"><b>{{current_user.username}}</b></a>
+            <a class="nav-link" href="{{ url_for('user.battle') }}">Battle!</a>
+
+            {% else %}
+            <a class="nav-link" href="{{ url_for('user.signin')}}">Sign In</a>
+            <a class="nav-link" href="{{ url_for('user.register')}}">Register</a>
+            {% endif %}
         </div>
     </nav>
     <div class="container-fluid">
