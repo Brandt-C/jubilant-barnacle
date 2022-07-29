@@ -1,4 +1,17 @@
 * {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color:#ee7e2f;
+    background-color:#f17827;
+}
+
+#nav-cont > a {
+text-decoration: none;
+color: black;
+}
+#usertag {
+    font-weight: 700;
+    font-size: larger;
+}
+
+#battletag {
+    font-weight: 800;
 }
