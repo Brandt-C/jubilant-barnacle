@@ -16,12 +16,12 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <h2>The first rule of Poke-Battle is that you don't talk about Poke-Battle. . .</h2>
+        <h3>The first rule of Poke-Battle is that you don't talk about Poke-Battle. . .</h3>
     </div>
     <div class="row justify-content-center">
         {% for x in randex.pokemon %}
-        <div class="card" style="width: 12rem;">
-            <img src="{{randex.pokemon[x].sprite}}" class="card-img-top" alt="poke image">
+        <div id="card" class="card m-3 border-5 border-danger" style="width: 14rem;">
+            <img src="{{randex.pokemon[x].sprite}}" class="card-img-top rounded-circle mt-1" alt="poke image">
             <div class="card-body">
                 <p class="card-text"><b>{{randex.pokemon[x].name.title()}}</b> {{ funp.pop()}}</p>
             </div>

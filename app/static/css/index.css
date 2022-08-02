@@ -6,3 +6,18 @@
 body {
     background-color: #f17827;
 }
+
+#card {
+    background-color: #f17827;
+    border-width: 5px;
+}
+
+.card-img-top {
+    background-color: #f8ac79;
+}
+
+h3 {
+    padding-top: 15px;
+    padding-bottom: 10px;
+    text-align: center;
+}

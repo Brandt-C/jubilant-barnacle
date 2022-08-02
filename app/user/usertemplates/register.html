@@ -1,7 +1,11 @@
 {% extends './components/layout.html' %}
 
+{% block head %}
+<link rel="stylesheet" href="../../static/css/reg.css">
+{% endblock %}
+
 {% block content %}
-<h3 style="text-align:center;"><b>Registration-</b></h3>
+<h3 style="text-align:center;"><b>Register!</b></h3>
 <div class="d-flex justify-content-center">
 <form method="POST">
   {{ rform.hidden_tag() }}
@@ -32,7 +36,7 @@
   </fieldset>
   <br>
   <div class="d-grid gap-2 col-4 mx-auto mt-4">
-    {{ rform.submit(class='btn btn-block btn-info') }}
+    {{ rform.submit(class='btn btn-block btn-primary') }}
   </div>
 
 

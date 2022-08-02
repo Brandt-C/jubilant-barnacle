@@ -1,11 +1,15 @@
 {% extends './components/layout.html' %}
 
+{% block head %}
+<link rel="stylesheet" href="../../static/css/signin.css">
+{% endblock %}
 
 
 {% block content %}
 <h4 style="text-align: center;"><b>Sign-in</b></h4>
 <div class="container mt-4">
-    <form class="row justify-content-md-center" method="POST">
+    <form method="POST">
+        <div class="row justify-content-md-center">
         {{ sform.hidden_tag() }}
         <div class="mb-3 col-3">
             {{ sform.username.label }}
@@ -15,10 +19,14 @@
             {{ sform.password.label }}
             {{ sform.password(class='form-control', placeholder='Please enter your password.')}}
         </div>
-        <div class="d-grid gap-2 col-4 mx-auto mt-4">
+</div>
+        <div class="row justify-content-md-center">
+        <div class="d-grid gap-2 col-6 ">
             {{ sform.submit(class='btn btn-primary') }}
         </div>
+        </div>
         <br>
+
     </form>
 </div>
 
