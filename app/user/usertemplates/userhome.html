@@ -8,7 +8,7 @@
 
 
 {% block content %}
-<h1>User Hompage</h1>
+
 {% endblock %}
 
 
@@ -23,7 +23,7 @@
       <div class="card-body">
         <form method="POST">
           {{ fpform.poke.label }}
-          {{ fpform.poke(class='form-control', placeholder='Enter Poke name')}}
+          {{ fpform.poke(class='form-control', placeholder='Pokemon')}}
           {{ fpform.submit(class='btn btn-danger') }}
         </form>
       </div>
@@ -31,7 +31,7 @@
 
 
     {% for x in dex.pokemon %}
-    <div class="card2" style="width: 18rem;">
+    <div class="card2" style="width: 10rem;">
       <img src="{{dex.pokemon[x].sprite}}" class="card-img-top" alt="{{dex.pokemon[x].name}} image">
       <div class="card-body">
         <h5 class="card-title">{{dex.pokemon[x].name.title()}}</h5>
@@ -63,11 +63,11 @@
 {% block content3 %}
 <div class="container">
   <div class="row justify-content-center">
-    <h2><strong>{{current_user.username}}'s Roster:</strong></h2>
+    <h2>{{current_user.username}}'s Roster:</h2>
   </div>
   <div class="row justify-content-center">
     {% for x in mydex.pokemon %}
-    <div class="card2" style="width: 18rem;">
+    <div class="card2 border border-3 rounded border-light m-auto" style="width: 10rem;">
       <img src="{{mydex.pokemon[x].sprite}}" class="card-img-top img-fluid" alt="{{mydex.pokemon[x].name}} image">
       <div class="card-body">
         <h5 class="card-title">{{mydex.pokemon[x].name.title()}}</h5>

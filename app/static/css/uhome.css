@@ -1,3 +1,24 @@
 body {
-    background-color: #f17827;
+    /* background-color: #f17827; */
+    background-image: linear-gradient(to right, #f17827 , rgb(93, 248, 248));
+}
+
+.container, .row, .container-fluid {
+background-color: rgba(54, 25, 25, 0);
+}
+h2 {
+    background-color: rgba(255, 255, 255, 0.0000004);
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.card1 {
+    margin-bottom: 10px;
+    border: 3px solid rgb(93, 248, 248);
+    border-radius: 3%;
+}
+.btn-danger {
+    margin-top: 10px;
+    max-width: 200px;
 }

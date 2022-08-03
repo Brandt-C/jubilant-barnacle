@@ -14,6 +14,7 @@ body {
 
 .card-img-top {
     background-color: #f8ac79;
+    border-bottom: 2px, black;
 }
 
 h3 {

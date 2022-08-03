@@ -91,7 +91,7 @@ class User(db.Model, UserMixin):
     def winner(self):
         if self.wins == None:
             self.wins = str(1)
-            db.session.commit()
+            db.session.commit()    
         else:
             x = self.wins
             y = int(x) + 1
