@@ -17,8 +17,12 @@ h2 {
     margin-bottom: 10px;
     border: 3px solid rgb(93, 248, 248);
     border-radius: 3%;
+    margin-top: 10px;
 }
 .btn-danger {
     margin-top: 10px;
     max-width: 200px;
+}
+li > b{
+background-color: rgba(255, 255, 255, 0.0000004);
 }

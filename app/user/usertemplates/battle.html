@@ -1,6 +1,8 @@
 {% extends './components/layout.html' %}
 
 {% block head %}
+
+<link rel="stylesheet" href="../../static/css/battle.css">
 {% endblock %}
 
 {% block content %}
@@ -28,7 +30,7 @@
     </div>
     <div class="row justify-content-center">
         {% for x in cuserdex.pokemon %}
-        <div class="card2" style="width: 12rem;">
+        <div class="card2 border border-3 border-rounded m-1" style="width: 12rem;">
             <img src="{{cuserdex.pokemon[x].sprite}}" class="card-img-top img-fluid"
                 alt="{{cuserdex.pokemon[x].name}} image">
             <div class="card-body">
@@ -53,7 +55,7 @@
     </div>
     <div class="row justify-content-center">
         {% for x in oppuserdex.pokemon %}
-        <div class="card2" style="width: 12rem;">
+        <div class="card2 border border-3 border-rounded m-1" style="width: 12rem;">
             <img src="{{oppuserdex.pokemon[x].sprite}}" class="card-img-top img-fluid"
                 alt="{{oppuserdex.pokemon[x].name}} image">
             <div class="card-body">
@@ -70,7 +72,7 @@
         </div>
         {% endfor %}
     </div>
-    {% if oppname %}
+    {% if oppname and not summ %}
     <form method="POST" action="{{ url_for('user.battle') }}">
         {{ bform.opp(value=oppname) }}
         {{ bform.submit(class='btn btn-danger') }}

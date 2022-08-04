@@ -1,0 +1,19 @@
+body {
+    /* background-color: #f17827; */
+    background-image: linear-gradient(to right, #f17827 , rgb(93, 248, 248));
+}
+
+.container, .row, .container-fluid, h2 > strong, h2, h3, strong > b, form {
+background-color: rgba(54, 25, 25, 0);
+text-align: center;
+}
+li > b, h6 {
+    background-color: rgba(255, 255, 255, 0.0000004);
+}
+
+.card2 {
+    background-color: rgba(255, 255, 255, 0.0000004);
+    border-color: red;
+    border-radius: 2%;
+    border-width: 4px;
+}

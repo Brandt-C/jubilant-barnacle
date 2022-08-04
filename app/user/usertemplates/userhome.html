@@ -28,10 +28,10 @@
         </form>
       </div>
     </div>
-
-
+  </div>
+  <div class="row justify-content-md-center">
     {% for x in dex.pokemon %}
-    <div class="card2" style="width: 10rem;">
+    <div class="card2 border border-3 rounded border-light m-auto" style="width: 20rem;">
       <img src="{{dex.pokemon[x].sprite}}" class="card-img-top" alt="{{dex.pokemon[x].name}} image">
       <div class="card-body">
         <h5 class="card-title">{{dex.pokemon[x].name.title()}}</h5>
@@ -47,10 +47,10 @@
       <div class="card-body">
         {% if dex.pokemon[x].user != None %}
         <h6>Caught by-<strong>{{dex.pokemon[x].user}}</strong></h6>
-        {% elif not dex.pokemon[x].user %}
+        {% elif not dex.pokemon[x].user and dex.pokemon[x].name not in my_dict.values() %}
         <form method="POST" action="{{ url_for('user.userHome') }}">
           <input type="hidden" name="name-catch" value="{{dex.pokemon[x].name}}" />
-          <input type="submit" value="catch" name="catch-btn" />
+          <input id="catch-btn" type="submit" value="catch" name="catch-btn" />
         </form>
         {% endif %}
       </div>
@@ -82,8 +82,8 @@
       </ul>
       <div class="card-body">
         <form method="POST" action="{{ url_for('user.userHome') }}">
-          <input type="hidden" name="name-release" value="{{mydex.pokemon[x].name}}"/>
-          <input type="submit" value="release" name="release-btn"/>
+          <input type="hidden" name="name-release" value="{{mydex.pokemon[x].name}}" />
+          <input type="submit" value="release" name="release-btn" />
         </form>
       </div>
     </div>
@@ -91,4 +91,4 @@
 
   </div>
 </div>
-  {% endblock %}
+{% endblock %}
