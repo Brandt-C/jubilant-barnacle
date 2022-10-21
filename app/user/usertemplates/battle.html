@@ -46,6 +46,18 @@
             </ul>
         </div>
         {% endfor %}
+        <div id="rec-card" class="card" style="width: 10rem;">
+            <div class="card-header">
+                {{ current_user.username}}'s Record:
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Wins- {{w}}</li>
+                <li class="list-group-item">Losses- {{ l }}</li>
+                {% if w>0 and l>0 %}
+                <li class="list-group-item">Win Per- {{ (w/(w + l))*100}}%</li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
     <div class="row justify-content-center">
         <h2><strong><b>VS-</b></strong></h2>
@@ -55,7 +67,7 @@
     </div>
     <div class="row justify-content-center">
         {% for x in oppuserdex.pokemon %}
-        <div class="card2 border border-3 border-rounded m-1" style="width: 12rem;">
+        <div class="card2 border border-3 border-rounded border-dark m-1" style="width: 12rem;">
             <img src="{{oppuserdex.pokemon[x].sprite}}" class="card-img-top img-fluid"
                 alt="{{oppuserdex.pokemon[x].name}} image">
             <div class="card-body">
@@ -71,6 +83,21 @@
             </ul>
         </div>
         {% endfor %}
+        {% if oppname %}
+        <div id="rec-card" class="card" style="width: 10rem;">
+            <div class="card-header">
+                {{ oppname }}'s Record:
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Wins- {{opw}}</li>
+                <li class="list-group-item">Losses- {{ opl }}</li>
+                {% if opw > 0 and opl > 0 %}
+                <li class="list-group-item">Win Per- {{ (opw/(opw + opl))*100}}%</li>
+                {% endif %}
+
+            </ul>
+        </div>
+        {% endif %}
     </div>
     {% if oppname and not summ %}
     <form method="POST" action="{{ url_for('user.battle') }}">
@@ -87,7 +114,7 @@
 
 {% if summ %}
 
-<h3>{{summ['winner']}} Won!</h3>
+<h3 class="chix_din">{{summ['winner']}} Won!</h3>
 {% for x in summ %}
 {% if x != 'winner' or x != 'loser' %}
 

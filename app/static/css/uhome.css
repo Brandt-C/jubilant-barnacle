@@ -12,7 +12,9 @@ h2 {
     margin-top: 10px;
     margin-bottom: 5px;
 }
-
+.card2 > ul{
+    background-color: rgba(255, 255, 255, 0.0000004);
+}
 .card1 {
     margin-bottom: 10px;
     border: 3px solid rgb(93, 248, 248);
@@ -23,6 +25,14 @@ h2 {
     margin-top: 10px;
     max-width: 200px;
 }
-li > b{
+ul > li > b{
 background-color: rgba(255, 255, 255, 0.0000004);
+}
+
+#rec-card {
+    background-color: rgba(255, 255, 255, 0.0000004);
+    font-weight: 800;
+}
+#rec-card > ul > li{
+    background-color: rgba(255, 255, 255, 0.0000004);
 }

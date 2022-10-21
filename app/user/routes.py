@@ -57,6 +57,12 @@ def userHome():
     dex = Pokedex()
     mydex = Pokedex()
     my_dict = current_user.poke_dict()
+    w = current_user.wins
+    l = current_user.loses
+    if not w:
+        w = 0
+    if not l:
+        l = 0
     for x in my_dict.values():
         if x:
             mydex.add_poke(x)
@@ -68,10 +74,10 @@ def userHome():
                     upoke = Pokemon.query.filter(Pokemon.name==pname).first()
                     upoke.catch(current_user.username)
                     flash(f'{pname} caught!', category='success')
-                    return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)
+                    return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex, w=w, l=l)
                 else:
                     flash(f'{pname} already caught!', category='danger')
-                    return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)
+                    return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex, w=w, l=l)
         
         if request.form.get('release-btn') == 'release':
                 pname = request.form.get('name-release')
@@ -79,18 +85,18 @@ def userHome():
                 upoke = Pokemon.query.filter(Pokemon.name==pname).first()
                 upoke.release()
                 flash(f'{pname} released!', category='warning')
-                return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)
+                return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex, w=w, l=l)
 
         if fpform.data:
             try:
                 dex.add_poke(fpform.data['poke'])
-                return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)
+                return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex, w=w, l=l)
             except:
                 flash(f'Poke not found, try again!', category='danger')
-                return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)
+                return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex, w=w, l=l)
   
     flash('Welcome back!', category='success')
-    return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex)
+    return render_template('userhome.html', my_dict=my_dict, dex=dex, fpform=fpform, mydex=mydex, w=w, l=l)
 
 @user.route('/battle', methods=['GET', 'POST'])
 @login_required
@@ -103,6 +109,12 @@ def battle():
     un = current_user.username
     my_dict = current_user.poke_dict()
     oppname = None
+    w = current_user.wins
+    l = current_user.loses
+    if not w:
+        w = 0
+    if not l:
+        l = 0
     for x in my_dict.values():
         if x:
             cuserdex.add_poke(x)
@@ -112,17 +124,29 @@ def battle():
             oppname = request.form.get('catch-btn')
             opp_user = User.query.filter(User.username==oppname).first()
             opp_pokes = opp_user.poke_dict()
+            opw = opp_user.wins
+            opl = opp_user.loses
+            if not opw:
+                opw = 0
+            if not opl:
+                opl = 0
             print(opp_pokes, oppname, opp_user)
             for x in opp_pokes.values():
                 if x:
                     oppuserdex.add_poke(x)
-            return render_template('battle.html', ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex, oppname=oppname, bform=bform, opp_user=opp_user)
+            return render_template('battle.html', ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex, oppname=oppname, bform=bform, opp_user=opp_user, w=w, l=l, opw=opw, opl=opl)
             
         if bform.data:
             print(f'\nBform data-\t{bform.data}')
             oppname = bform.data['opp']
             opp_user = User.query.filter(User.username==oppname).first()
             opp_dict = opp_user.poke_dict()
+            opw = opp_user.wins
+            opl = opp_user.loses
+            if not opw:
+                opw = 0
+            if not opl:
+                opl = 0
             for x in opp_dict.values():
                 if x:
                     oppuserdex.add_poke(x)
@@ -140,8 +164,8 @@ def battle():
                 opp_user.winner()
             flash(f"{summ['winner']} WON THE BATTLE!!!", category='success')
             flash(f"It's a sad day for {summ['loser']}, they lost. . .", category='warning')
-            return render_template('battle.html', b=b, summ=summ, ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex, oppname=oppname, opp_user=opp_user, bform=bform)
+            return render_template('battle.html', b=b, summ=summ, ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex, oppname=oppname, opp_user=opp_user, bform=bform, w=w, l=l, opw=opw, opl=opl)
             
 
             
-    return render_template('battle.html', ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex, oppname=oppname, bform=bform)
+    return render_template('battle.html', ulist=ulist, cuserdex=cuserdex, oppuserdex=oppuserdex, oppname=oppname, bform=bform, w=w, l=l)

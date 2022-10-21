@@ -88,7 +88,18 @@
       </div>
     </div>
     {% endfor %}
-
+    <div id="rec-card" class="card" style="width: 10rem;">
+      <div class="card-header">
+        {{ current_user.username}}'s Record:
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Wins- {{w}}</li>
+        <li class="list-group-item">Losses- {{ l }}</li>
+        {% if w > 0 and l > 0 %}
+        <li class="list-group-item">Win Per- {{ (w/(w + l))*100}}%</li>
+        {% endif %}
+      </ul>
+    </div>
   </div>
 </div>
 {% endblock %}

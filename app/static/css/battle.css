@@ -17,3 +17,14 @@ li > b, h6 {
     border-radius: 2%;
     border-width: 4px;
 }
+
+#rec-card {
+    background-color: rgba(255, 255, 255, 0.0000004);
+    font-weight: 800;
+}
+#rec-card > ul > li{
+    background-color: rgba(255, 255, 255, 0.0000004);
+}
+h6, #chix_din {
+    text-align: center;
+}
