@@ -32,6 +32,7 @@ def funPhrase():
         "will battle to the end of their hp.",
         "smells blood.",
         "will end you.",
-        "is almost out of bubblegum."
+        "is almost out of bubblegum.",
+        "really wonders why can't we all just get along???"
     ]
     return sample(x,4)
